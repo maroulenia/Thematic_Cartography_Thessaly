@@ -149,7 +149,7 @@ MapLibre GL JavaScript
      ============================================================ -->
 
 <!-- BASEMAP SELECTOR (Top-left corner) -->
-<!-- 🌍✔️ When you change a basemap (the link) you should also change the name of the basemap you select (i.e., Light, Dark) inside the >...< -->
+<!-- 🌍 When you change a basemap (the link) you should also change the name of the basemap you select (i.e., Light, Dark) inside the >...< -->
 <!-- Allows user to switch between Light and Dark background maps -->
 <div id="styleSelector">
   <select id="basemapSelect">
@@ -347,7 +347,7 @@ Examples:
 * 5. Swap them to (longitude, latitude) for MapLibre
 */
 
-/* 🌍✔️ MODIFY MAP CENTER AND ZOOM */
+/* 🌍 MODIFY MAP CENTER AND ZOOM */
 const map = new maplibregl.Map({
   container: 'map',           // Links to the <div id="map"> element in HTML
   style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',  // Initial basemap style
@@ -376,7 +376,7 @@ const map = new maplibregl.Map({
 * For external hosting:
 *    - Use full URL like 'https://example.com/data/file.geojson'
 
-/* 🌍✔️ MODIFY DATA FILE PATHS AND FIELD NAMES */
+/* 🌍 MODIFY DATA FILE PATHS AND FIELD NAMES */
 const layerDefinitions = {
   // Choropleth map layer (population density by municipality)
   popdens: {
@@ -398,7 +398,7 @@ const layerDefinitions = {
     layerId: 'poipop-layer',
     url: 'data/dimoi_cen_pies_WGS84.geojson',        // 🌍 Path to your file
     dataField: 'POPMUN',                           // 🌍 Column name in your GeoJSON
-    maxValueApprox: 164095                         // 🌍✔️ Set the maximum population value (for scaling circles)
+    maxValueApprox: 164095                         // 🌍 Set the maximum population value (for scaling circles)
   },
   // Contours/isopleths layer (population potential lines)
   contours: {
@@ -447,7 +447,7 @@ const enabledLayers = {
 // These arrays define the colors used for each classification method
 // The number of colors must match the number of classes + 1
 
-/* 🌍✔️ MODIFY CHOROPLETH COLOR SCHEMES (for POPDENS layer) */
+/* 🌍 MODIFY CHOROPLETH COLOR SCHEMES (for POPDENS layer) */
 // 🗺️ Change these hex colors to customize your choropleth appearance
 // IMPORTANT: Colors are automatically used in BOTH the map AND the legend
 // - The legend generation code (Lines ~906-919) will automatically use these colors
@@ -471,7 +471,7 @@ const colorSchemes = {
   7: ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#807dba', '#6a51a3', '#4a1486'] // 🌍 7 classes = 7 colors (lightest to darkest)
 };
 
-/* 🌍✔️ MODIFY DASYMMETRIC MAP COLOR SCHEMES (for DENS_COVER layer) */
+/* 🌍 MODIFY DASYMMETRIC MAP COLOR SCHEMES (for DENS_COVER layer) */
 // 🗺️ Change these hex colors (red scheme to match choropleth)
 // IMPORTANT: Colors are automatically used in BOTH the map AND the legend
 // - The legend generation code (Lines ~921-934) will automatically use these colors
@@ -495,7 +495,7 @@ const denscoverColorSchemes = {
   7: ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#807dba', '#6a51a3', '#4a1486'] // 🌍 7 classes = 7 colors (lightest to darkest)
 };
 
-/* 🌍✔️ DEFINE YOUR CUSTOM INTERVAL BREAKS FOR POPDENS */
+/* 🌍 DEFINE YOUR CUSTOM INTERVAL BREAKS FOR POPDENS */
 // These break values define the class boundaries for custom classification
 // IMPORTANT: The number of colors must equal number of breaks + 1
 // Example: 5 breaks = 6 colors (one for each range: <break1, break1-break2, ..., >break5)
@@ -509,7 +509,7 @@ const denscoverColorSchemes = {
 const customBreaks = [14, 22, 33, 60, 450]; // 🌍 Set the custom class breaks
 const customColors = ['#f2f0f7', '#dadaeb', '#bcbddc', '#9e9ac8', '#756bb1', '#54278f']; //🌍 Set a colour for each class
 
-/* 🌍✔️ DEFINE YOUR CUSTOM INTERVAL BREAKS FOR DENS_COVER */
+/* 🌍 DEFINE YOUR CUSTOM INTERVAL BREAKS FOR DENS_COVER */
 // These break values define the class boundaries for custom classification in dasymmetric map
 // IMPORTANT: The number of colors must equal number of breaks + 1
 // Example: 5 breaks = 6 colors (one for each range: <break1, break1-break2, ..., >break5)
@@ -909,7 +909,7 @@ function loadPoipopLayer() {
       ensureSource(def.sourceId, geojson);
 
       const maxR = parseInt(document.getElementById('maxRadius').value,10);
-      const vL = def.maxValueApprox || 164095; // 🌍✔️ Set the same number as in Line 390 (maximum population value based on the geojson population field values)
+      const vL = def.maxValueApprox || 164095; // 🌍 Set the same number as in Line 390 (maximum population value based on the geojson population field values)
       const radiusExpr = ['*', ['^', ['/', ['get', def.dataField], vL], 0.57], maxR]; // 🗺️ You generally don't need to modify this function unless you want to experiment with different scaling methods
 
       if (!map.getLayer(def.layerId)) {
@@ -918,10 +918,10 @@ function loadPoipopLayer() {
           type: 'circle',
           source: def.sourceId,
           paint: {
-            'circle-color': 'rgba(74,20,134,0.8)',  // 🌍✔️ Change circle fill color (legend uses stroke only - see Lines ~1170 - 1183)
+            'circle-color': 'rgba(74,20,134,0.8)',  // 🌍 Change circle fill color (legend uses stroke only - see Lines ~1170 - 1183)
             'circle-radius': radiusExpr,
             'circle-opacity': parseInt(document.getElementById('poipopOpacity').value,10)/100,
-            'circle-stroke-color': '#6a51a3',          // 🌍️✔️ Change circle outline color (also change legend Lines ~1170 - 1183 stroke="red")
+            'circle-stroke-color': '#6a51a3',          // 🌍️ Change circle outline color (also change legend Lines ~1170 - 1183 stroke="red")
             'circle-stroke-width': 0.8
           }
         });
@@ -949,7 +949,7 @@ function updatePoipopRadius() {
   if (!map.getLayer(def.layerId)) return;
   
   const maxR = parseInt(document.getElementById('maxRadius').value,10);
-  const vL = def.maxValueApprox || 164095; // 🌍✔️ Set the same number as in Lines 390 and 894 (maximum population value based on the geojson population field values)
+  const vL = def.maxValueApprox || 164095; // 🌍 Set the same number as in Lines 390 and 894 (maximum population value based on the geojson population field values)
   const radiusExpr = ['*', ['^', ['/', ['get', def.dataField], vL], 0.57], maxR]; // 🗺️ You generally don't need to modify this function unless you want to experiment with different scaling methods
   
   map.setPaintProperty(def.layerId, 'circle-radius', radiusExpr);
@@ -968,7 +968,7 @@ function loadContoursLayer() {
   ensureSource(def.sourceId, def.url);
 
   const widthExpr = ['case', ['==', ['%', ['get', 'potential'], 1000000], 0], 3.5, 1];
-  const color = '#54278f';  // 🌍✔️ Change contour line color (also change legend Lines ~1194-1200 stroke="#8B0000")
+  const color = '#54278f';  // 🌍 Change contour line color (also change legend Lines ~1194-1200 stroke="#8B0000")
 
   if (!map.getLayer(def.layerId)) {
     map.addLayer({
@@ -1013,7 +1013,7 @@ function loadDotsLayer() {
       type: 'circle',
       source: def.sourceId,
       paint: {
-        'circle-color': '#4a1486',  // 🌍✔️ Change dot color (also change legend Lines ~1207-1208 fill="#ff0000")
+        'circle-color': '#4a1486',  // 🌍 Change dot color (also change legend Lines ~1207-1208 fill="#ff0000")
         'circle-radius': dotSize,
         'circle-opacity': opacity
       }
@@ -1045,7 +1045,7 @@ function loadBoundariesLayer() {
       type: 'line',
       source: def.sourceId,
       paint: {
-        'line-color': '#7f6689',   // 🗺️✔️ Change boundary line color (also change legend Line ~1216 stroke="#bbbbbb")
+        'line-color': '#7f6689',   // 🗺️ Change boundary line color (also change legend Line ~1216 stroke="#bbbbbb")
         'line-width': 1,
         'line-opacity': parseInt(document.getElementById('boundariesOpacity').value,10)/100
       }
@@ -1109,14 +1109,14 @@ function updateLegend() {
   const legend = document.getElementById('legend');
   let html = '';
 
-  /* 🌍✔️ Change the text below to customize your map title and credits */
+  /* 🌍 Change the text below to customize your map title and credits */
   html += `
     <div class="legend-header">
       <div class="legend-map-title">THESSALIA POPULATION</div>
       <div class="legend-author">
         <strong>Data source:</strong> Hellenic Statistical Authority - Population data 2021<br>
-        <strong>Produced by:</strong> Panagiota Kakava <br> <!-- 🌍✔️ Author name and surname -->
-        <strong>Student ID:</strong> rs21651<br> <!-- 🌍✔️ Author ID -->
+        <strong>Produced by:</strong> Panagiota Kakava <br> <!-- 🌍 Author name and surname -->
+        <strong>Student ID:</strong> rs21651<br> <!-- 🌍 Author ID -->
         National Technical University of Athens (NTUA)<br>
         School of Rural, Surveying & Geoinformatics Engineering<br>
         Cartography Laboratory<br>
@@ -1165,7 +1165,7 @@ function updateLegend() {
     const maxR = parseInt(document.getElementById('maxRadius').value,10);
     const maxVal = layerDefinitions.poipop.maxValueApprox || 164095; // 🌍✔️ Set the same number as in Lines 390 and 894 (maximum population value based on the geojson population field values)
     
-    // 🌍✔️ Change these values to match your data ranges
+    // 🌍 Change these values to match your data ranges
     const value1 = 10000;      // 🌍 Smallest circle (select an indicative value)
     const value2 = 30000;     // 🌍 Small-medium circle (select an indicative value)
     const value3 = 60000;     // 🌍 Medium-large circle (select an indicative value)
@@ -1209,19 +1209,19 @@ function updateLegend() {
     // All circles aligned at BOTTOM, labels positioned ABOVE each circle
     // fill="none" means only red outline is visible (no color blending)
     
-    //  🌍✔️Largest circle (120,000 - drawn first, appears in back (SAME COLOUR AS IN LINE 906)
+    //  🌍Largest circle (120,000 - drawn first, appears in back (SAME COLOUR AS IN LINE 906)
     html += `<circle cx="${centerX}" cy="${cy4}" r="${r4}" fill="none" stroke="#6a51a3" stroke-width="1.5"/>`;
     html += `<text x="${centerX}" y="${cy4 - r4 - 5}" text-anchor="middle" font-size="11" fill="#333">${label4}</text>`;
     
-    // 🌍✔️ Large circle (60,000) (SAME COLOUR AS IN LINE 906)
+    // 🌍 Large circle (60,000) (SAME COLOUR AS IN LINE 906)
     html += `<circle cx="${centerX}" cy="${cy3}" r="${r3}" fill="none" stroke="#6a51a3" stroke-width="1.5"/>`;
     html += `<text x="${centerX}" y="${cy3 - r3 - 5}" text-anchor="middle" font-size="11" fill="#333">${label3}</text>`;
     
-    // 🌍✔️ Medium circle (30,000) (SAME COLOUR AS IN LINE 906)
+    // 🌍 Medium circle (30,000) (SAME COLOUR AS IN LINE 906)
     html += `<circle cx="${centerX}" cy="${cy2}" r="${r2}" fill="none" stroke="#6a51a3" stroke-width="1.5"/>`;
     html += `<text x="${centerX}" y="${cy2 - r2 - 5}" text-anchor="middle" font-size="11" fill="#333">${label2}</text>`;
     
-    // 🌍✔️ Smallest circle (10,000) - drawn last, appears in front (SAME COLOUR AS IN LINE 906)
+    // 🌍 Smallest circle (10,000) - drawn last, appears in front (SAME COLOUR AS IN LINE 906)
     html += `<circle cx="${centerX}" cy="${cy1}" r="${r1}" fill="none" stroke="#6a51a3" stroke-width="1.5"/>`;
     html += `<text x="${centerX}" y="${cy1 - r1 - 5}" text-anchor="middle" font-size="11" fill="#333">${label1}</text>`;
     
@@ -1239,7 +1239,7 @@ function updateLegend() {
     html += `<div class="legend-title">Population dynamic (2M & 4M)</div>`;
     html += `<div class="legend-row"><svg class="legend-line"><line x1="0" y1="7" x2="40" y2="7" stroke="#54278f" stroke-width="3.5"/></svg><div>Primary</div></div>`;
     html += `<div class="legend-row"><svg class="legend-line"><line x1="0" y1="7" x2="40" y2="7" stroke="#54278f" stroke-width="1"/></svg><div>Secondary</div></div>`;
-    // 🌍✔️ Change stroke="#8B0000" to modify contour line color in legend
+    // 🌍 Change stroke="#8B0000" to modify contour line color in legend
     // Also change map layer color at Line ~953 const color = '#8B0000' (SAME COLOUR AS IN LINE 953)
     html += '<hr>';
   }
@@ -1249,7 +1249,7 @@ function updateLegend() {
     // 🌍 Change "Population density" to your preferred legend title
     html += `<div class="legend-title">Population density</div>`;
     html += `<div class="legend-row"><svg width="30" height="24"><circle cx="15" cy="12" r="${parseFloat(document.getElementById('dotSize').value)}" fill="#4a1486"/></svg><div>1 dot = 500 people</div></div>`;
-    // 🌍✔️ Change fill="#ff0000" for dot color and "500 people" to match your data
+    // 🌍 Change fill="#ff0000" for dot color and "500 people" to match your data
     // Also change map layer color at Line ~998 'circle-color': '#ff0000' (SAME COLOUR AS IN LINE 998)
     html += '<hr>';
   }
@@ -1760,4 +1760,5 @@ console.log(layerDefinitions);
 -->
 </body>
 </html>
+
 
